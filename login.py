@@ -10,12 +10,25 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_Dialog(object):
     def loginCheck(self):
-        print(" Кнопка нажата! ")
         id = self.idEdit.text()
         userlogin = self.loginEdit_3.text()
         userpassword = self.passEdit_2.text()
         self.vk_conn = vkontakte(id, userlogin,userpassword)
-        print(self.vk_conn.get_last_messages())
+        text = self.vk_conn.get_last_messages()
+		
+        for i in range(1,10):
+            if text[i]['read_state'] == 1:
+                if i == 1:
+                    print('Нет непрочитанных сообщений')
+                break
+            user_info = api.users.get(user_ids = text[i]['uid'])
+            print(user_info[0]['last_name'] + ' ' + user_info[0]['first_name']+': '+text[i]['body'] )
+            # print(text[i])
+            try:
+                attachment = text[i]['attachment']
+                print(attachment['type'])
+            except KeyError:
+                pass
 		
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")

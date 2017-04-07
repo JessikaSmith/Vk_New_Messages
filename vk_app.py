@@ -8,7 +8,7 @@ class vkontakte:
 		self.api = vk.API(self.session)
 		
 	def get_last_messages(self):
-		return self.api.messages.get(out = 0)
+		return self.api.messages.get(out = 0,count = 10)
 		
 	
 
