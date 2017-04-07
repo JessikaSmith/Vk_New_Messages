@@ -1,0 +1,1 @@
+Getting last messages vkontakte
