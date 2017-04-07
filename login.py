@@ -21,7 +21,7 @@ class Ui_Dialog(object):
                 if i == 1:
                     print('Нет непрочитанных сообщений')
                 break
-            user_info = api.users.get(user_ids = text[i]['uid'])
+            user_info = self.vk_conn.get_user_info(text[i]['uid'])
             print(user_info[0]['last_name'] + ' ' + user_info[0]['first_name']+': '+text[i]['body'] )
             # print(text[i])
             try:

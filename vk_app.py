@@ -10,5 +10,8 @@ class vkontakte:
 	def get_last_messages(self):
 		return self.api.messages.get(out = 0,count = 10)
 		
+	def get_user_info(self, user_ids):
+		return self.api.users.get(user_ids = user_ids)
+		
 	
 
