@@ -1,1 +1,1 @@
-Getting last messages vkontakte
+Getting last messages from vkontakte
