@@ -8,27 +8,51 @@ from vk_app import vkontakte
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
+path = 'D:/messages.txt'
+f = open(path, 'a')
+
+def get_creds():
+    creds = open('D:/creds.txt','r')
+    cr = creds.read()
+    return cr
+	
 class Ui_Dialog(object):
-    def loginCheck(self):
-        id = self.idEdit.text()
-        userlogin = self.loginEdit_3.text()
-        userpassword = self.passEdit_2.text()
-        self.vk_conn = vkontakte(id, userlogin,userpassword)
-        text = self.vk_conn.get_last_messages()
 		
-        for i in range(1,10):
+    def loginCheck(self):
+        path = 'D:/messages.txt'
+        f = open(path, 'w')
+        f.close()
+        f = open(path, 'a')
+        creds = get_creds()
+        creds = creds.split('\n')
+        id = creds[0] # self.idEdit.text()
+        userlogin = creds[1] # self.loginEdit_3.text()
+        userpassword = creds[2] # self.passEdit_2.text()
+        self.vk_conn = vkontakte(id,userlogin,userpassword)
+        text = self.vk_conn.get_last_messages()
+        # print("")
+        f.write(' '+'\n')
+		
+        for i in range(1,30):
             if text[i]['read_state'] == 1:
                 if i == 1:
-                    print('Нет непрочитанных сообщений')
+                    # print('Нет непрочитанных сообщений')
+                    f.write('Нет непрочитанных сообщений'+'\n')
                 break
             user_info = self.vk_conn.get_user_info(text[i]['uid'])
-            print(user_info[0]['last_name'] + ' ' + user_info[0]['first_name']+': '+text[i]['body'] )
-            # print(text[i])
+            try:
+                # print(user_info[0]['last_name'] + ' ' + user_info[0]['first_name']+': '+text[i]['body'].encode().decode('utf-8', 'ignore'))
+                f.write(user_info[0]['last_name'] + ' ' + user_info[0]['first_name']+': '+text[i]['body'].encode().decode('utf-8', 'ignore')+'\n')
+            except UnicodeEncodeError:
+                # print('***Some staff with unreadable characters***')
+                f.write('***Some staff with unreadable characters***'+'\n')
             try:
                 attachment = text[i]['attachment']
-                print(attachment['type'])
+                # print(attachment['type'])
             except KeyError:
                 pass
+        f.close()
 		
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
@@ -119,4 +143,5 @@ if __name__ == "__main__":
     ui.setupUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())
+    f.close()
 
