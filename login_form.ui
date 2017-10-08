@@ -166,6 +166,9 @@ color:rgb(255, 255, 255);
    <property name="text">
     <string>OK</string>
    </property>
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
   </widget>
  </widget>
  <resources/>

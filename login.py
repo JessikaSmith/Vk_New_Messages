@@ -3,6 +3,13 @@
 # Form implementation generated from reading ui file 'login_form.ui'
 #
 # Created by: PyQt5 UI code generator 5.6
+# reposts = open(r'C:\dtp and cp data\\reposts.json',encoding='utf-8')
+
+# writing to file is commented
+
+
+# making button click visible
+# mark for group dialogs
 
 from vk_app import vkontakte
 import os,sys
@@ -14,6 +21,7 @@ path = 'D:/messages.txt'
 f = open(path, 'a')
 
 def get_creds():
+    # getting creds from creds.txt when clicking 'OK' button
     creds = open('D:/creds.txt','r')
     cr = creds.read()
     return cr
@@ -25,9 +33,9 @@ class Ui_Dialog(object):
         #f = open(path, 'w')
         #f.close()
         #f = open(path, 'a')
-        creds = get_creds()
+        creds = get_creds() 
         creds = creds.split('\n')
-        id = creds[0] # self.idEdit.text()
+        id = creds[0] # self.idEdit.text() 
         userlogin = creds[1] # self.loginEdit_3.text()
         userpassword = creds[2] # self.passEdit_2.text()
         self.vk_conn = vkontakte(id,userlogin,userpassword)
